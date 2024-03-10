@@ -1,0 +1,126 @@
+Incident response plan/strategy:-
+=================================
+
+Payment-gateway is an crucial service to any organization. Failing this must always be treated as sev0 (Catastrophic Service Impact) issue. Plan/Strategy for this type of incidents will include the below steps/actions either in synchronous way or asynchronous way:-
+
+1.  Prompt Action:
+------------------
+    a. Initial Step:  This includes understanding of the issue from the end-user point of view.
+    -----------------
+   We need to ask very specific questions to understand the issue better and to know exactly where the issue is happening:-
+   for e.g. We may ask below questions:-
+	- At what time the first instace of issue noticed?
+	- Is this with all the partners (in case when we have multiple channels or third-party organizations for same service to be served)?
+	- Is the issue still happening?
+	- Is the issue with random customers or with all the customers? etc.
+
+   Post gathering this knowledge, we have to assemble an incident response team as this needs to be RCAd and resolved asap to reduce the downtime. As an Incident manager or a member of incident, its our primary focus to make the services up asap. We will basically add members which are in direct communication with the service such as: 
+	-operations: We will get the following info from this team:-
+		- The screenshot of issues, or
+		- URLs they are hitting to know the session_id, app_id and other details, or
+		- Sample impacted application_ids, or
+		- Atleast one success case application_id, or
+		- IP, or
+		- Error codes (HTTP code), if any, is visible to the team
+	 We will also get the updated partner details (for highlighting the issue, if it eventually comes out to be issue from partner's end)
+
+	-development: We will get the following info from this team:- 
+		- Info about any ongoing deployment or
+		- Info about any deployment done in sooner time,
+		- If yes, 
+			- Ask them to get ready with roll-back plan or fail-over plan if required to get the service resume on a priority basis so as buisness shouls resume
+	-testing team: We may ask them to check
+		- If things are working fine in UAT or staging platform, which further can confirm that issue is at production env or because of third-party APIs
+	-other_relevant stakeholders if required
+
+    b. Impact Assessment:
+    ------------------------
+    Next very important step is to analyze the impact and severity of the incident and then prioritize the incidents whether it falls under P0/P1/P2/P3 severity.
+    In the given problem statement, it will be treated as P0.
+    We can check the severity and impact as per the health and buisness metrics.
+
+This phase is like a quick detective job and must be performed in very effective way. This is most important to narrow down your issue to particular service. Sometimes, these questions give you clues about the exact issue. Then, you start your investigation in that direction.
+
+2. Initial Investigation:
+-------------------------
+    a. Review Monitoring Alerts:
+    -----------------------------
+    To start with the investigation,
+    - Check for any alerts triggered due to sudden spike in errors and connectivity loss. More specific the alerts are, easier it would be for a person to narrow down the investigation.
+	
+    b. Check service Health:
+    -------------------------
+    Further move to checking the service healths using different monitoring tools and multiple metrics. In the current scenario:-
+    - We will check NewRelic dashboard which is an APN software that provides real-time insights into the performance of applications.
+      We can monitor here various metrics (find detailed metrices list in the "Parameters to be observed" section) such as
+	- Application Performance Metrics (Response time, throughput, error rate, etc.)
+	- Cluster Metrics (CPU and Memory usage, Disk I/O, Traffic etc.)
+	- Database Performance Metrics (query time, active connections, etc.)
+	- App Page related Metrics (page load time, latency, etc.)
+	
+    - We will check cloudwatch which is an monitoring service provided by AWS to monitor aws resources
+      Here, we can check (find detailed metrices list in the "Parameters to be observed" section):-
+	- RDS health (CPU utilization, read/write operations, free space, etc.)
+	- Amplify health (Page load time, latency, error rates, CDN metrics etc.)
+    
+    - Kubernetes dashboard for k8s cluster health (CPU utilization, memory utilization, disk utilization, traffic, node status, pod status, deployment status, service/load_balancer status etc.)
+
+In this step, we will analyze KPIs (Key Performance Indicators) such as CPU utilization, memory usage, network traffic, and error rates across our Kubernetes cluster, RDS database, and AWS Amplify frontend using monitoring tools. We'll analyze graphs for anomalies, check for alerts and compare data-points to pinpoint issues accurately.
+
+3. Identifying the Root Cause:
+------------------------------
+At this point, we have a better understanding of where the problem might lie within our infrastructure. There are several areas we're considering as potential root causes for the issue. These include issues within our Kubernetes cluster, problems with our RDS database, or challenges with our AWS Amplify frontend. Each of these areas could be contributing to the problem we're experiencing, so we need to dig deeper to figure out exactly what's going on.
+
+    a. Analyze Kubernets Cluster:
+    ------------------------------
+	- Review cluster health status
+	- Check resource utilization at node level and pod level as well
+	- Inspect pods hosting payment-gateway service
+	- Check pod restart count
+	- Inspect container logs
+	- Check cluster/node capacity
+	- Review load_balancer (services) health
+	- Review deployment events
+	we may also:-
+	- Review if all pods of similar service is inside one node or is distributed among multiple nodes
+	- Review kubernetes events for pod evictions, failures, or scheduling issues
+	- Check number of instances/worker nodes
+	- Review ingress and egress rules
+
+    b. Investigating RDS database:
+    -------------------------------
+	- Verify connectivity to MySQL
+	- Ensure it is accessible from k8s cluster and frontend application
+	- Review and analyze query performance
+	- Check database logs
+	- Verify if any big query is running which may be causing over utlization of resources
+	- Check for db performance metrics, connection errors, or latency spikes
+	We may also:-
+	- Monitor Replication Status
+	- Verify the configuration for encryption, auhentication and access controls
+
+    c. AWS Amplify Frontend Investigation:
+    ---------------------------------------
+	- Inspect CDN performance
+	- Review logs
+
+    d. Splunk/Kibana(ELK):
+    ----------------------
+	- Analyze the logs
+	- Check for Request and Responses
+	- Check for timestamp of the failure case
+	- Check for pod details
+	- Check if any API fails with any exception
+	- Check if there is any HTTP error code
+	- Compare the request and response with the success case, if required or if there is any confusion
+	- Check for different metrics used for monitoring transactions
+	- Check for logs as per customer journey of performing a transaction with our payment-gateway service
+	
+    e. Network analysis:
+    --------------------
+    	- Check for Network Partition
+    	- Check for connectivity within system and with outside system
+    	- Analyze tcp dump
+    	- Ping endpoints
+    	- Check firewall rules
+    	

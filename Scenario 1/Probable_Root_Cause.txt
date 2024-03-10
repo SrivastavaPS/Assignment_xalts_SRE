@@ -1,0 +1,41 @@
+Probable root causes:
+=====================
+
+There could be various RCA for the given problem statement. Few of them are as follows:-
+
+1. Resources are over utilized:
+   - CPU 
+   - Memory
+   - Disk space
+   might have run out of configured values. This shortage can cause slowness, increase in latency and eventually failing the entire service. This can be in kubernets cluster or in RDS instance too.
+
+2. Heavy traffic to Database:
+   Heavy traffic can cause delays, increase in latency or errors while processing tranactions. 
+ 
+3. Exhaustion of the connection pool:
+   It may be a case when number of active connections have reached its maximum value.
+
+4. Bugs in the Frontend Application:
+   There can be some bug or glitch in the frontend application hosted on AWS Amplify. These errors will cause problem in the user's journey of making a succesful transaction. 
+
+5. Sticky sessions:
+   This could also be a major problem sometime in user's journey. He may end up landed to same page again and again without moving further in his payment journey.
+
+6. Network Connectivity Issue:
+   Connectivity issue within different parts of the system i.e. cluster, RDS, frontened will result in unnecessary latency and making it difficult for user to proceed further in transaction process.
+
+7. Routing Issue: Latency will be added due to unnecessary routing in between.
+
+8. Issue at Partner Side (external agencies):
+   The payment gateway relies on external agencies/banks. If there is any downtime at their premises, or any software upgrade, or any kind of process which is causing latency in the system will affect the payment gateway.
+
+9. Unregulated deployments:
+   Payment-gateway service might be dependent on any other service or infra within the system/company. Upgrading it or downtime in that service may again cause trouble in smooth transactions.
+
+10. Dependency Failures:
+   Failure in any internal part of payment-gateway (e.g. java or php versions change) may again cause trouble in smooth transactions.
+
+11. Certificate Expired:
+    For any service, which is dependent on external agency, use secure communication to communicate. This may be SSL certificate or key or any type authentication. Failing it or expiring the certificate will cause complete service outage.
+    
+12. Query execution time: The query may be very complex so it can take much of the time and resources.

@@ -1,0 +1,23 @@
+Preventive Measures:
+--------------------
+
+1. Access Control and Permissions: Only let authorized people access important files. Use strong authentication mechanisms and role-based access control (RBAC) to minimize the risk of accidental delete or unauthorized access.
+
+2. Regular Backup plans/strategy: Set up a robust backup plan, which automatically backups of critical files and credentials.
+
+3. Implement Version Control: Use systems like Git to manage important files, so you can go back to previous versions easily.
+
+4. Education and Training: Train everyone about the security awareness, importance of data security, handling of sensitive information, the risks of deleting them by accident and also to report in case of any abnormality detected.
+
+5. Monitoring and Alerts: Continuous monitoring to track access patterns, detect anomalies and take immediate action in case of potential security threat. Alerts must be triggered in case of any anomaly detected.
+
+6. Encryption of key: Double encrypt the key so as if in case it is in wrong hand, it could not be used for accessing the important data of the company.
+
+7. Storage: Store the key in secure, compliant storage with access controls and version control.
+
+8. Regularly Update Key: Update the key on regular basis to control the unauthorized access.
+
+9. Using config change in /etc/ssh/sshd_config file as below to restrict login from particular IPs only. In this case, user from outside world cann't enter into your system.
+	Match Address <network_IP_range>
+	PermitRootLogin yes
+                                                                                           

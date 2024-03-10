@@ -1,0 +1,64 @@
+Parameters to be observed:
+==========================
+To RCA any incident, we may have to observe some or all of the below parameters as per our lead:-
+1. Kubernetes Cluster:
+	- Pod Status and Health:
+		- Pod Status: Pods must be up and in running state.
+		- Pod Restart Count: Pods must be restarted only when triggered or configured.
+	- Node Health:
+		- CPU Utilization: Percentage of CPU usage must be within threshold set.
+		- Memory Utilization: Percentage of memory must be within threshold set.
+		- Disk Usage: Percentage of disk space must be within threshold set.
+	- Service Health:
+		- Load_Balancer: Able to balance route the traffic within pods (can be NodePort or CLusterIP or AWS load balancer as required)
+	- Deployment Status:
+		- Deployment Replicas: It must be as per manifest file.
+		- Deployment Events: To check if there in any abnormality
+	- Network Metrics:
+		- Throughput: Amount of data transferred in and out of the cluster.
+		- Latency: Must be as low as possible and within accepted range.
+		- Network Policies: Check if some changes were made.
+		- Ingress/Egress Rules: Must be as per requirement for incoming and outgoing traffic
+2. RDS Database:
+	- Database CPU and Memory Usage:
+		- CPU Utilization: Percentage of CPU usage by the database instance must be within threshold set.
+		- Memory Usage: Amount of memory used by the database instance must be within threshold set.
+	- Query Performance:
+		- Execution Time: Average time taken for queries to execute must not be as per desired.
+		- Throughput: Number of queries processed per second must not be more than accepted.
+		- Errors: Must be mapped and check for unknown errors or exceptions or HTTP code in the exception.
+	- Database Connections:
+		- Connection Count: Number of active connections to the database must be monitored for efficient working.
+		- Connection Errors: Number of failed connection attempts must be analyzed if it is valid or any a sign of any attack.
+	- Storage Metrics:
+		- Storage Usage: Free space must be constantly monitored and it should be within threshold set.
+		- Disk I/O Operations: It must be within the configured settings.
+3. AWS Amplify Frontend:
+	- Page Load Time:
+		- Page Load Time: This should be within the range of expected time with expected latency.
+	- Request Latency:
+		- Request Latency: Average time taken for HTTP requests to complete.
+		- Response Time: Time taken for the server to respond to requests. This mostly give	us readtimeout error or some HTTP errors with exception.
+	- Error Rates:
+		- HTTP Error Rates: Percentage of HTTP requests that result in errors (e.g., 4xx or 5xx status codes) must be analyzed and monitored.
+		- Application Error Rates: Percentage of application-specific errors encountered must be mapped to find the anamoly.
+4. Infrastructure Integration:
+	- Network:
+		- Check for Network Partition
+		
+	- Firewall and DNS:
+		- Firewall Rules: Rules which protect from attacks and undesired traffic
+		- DNS resolver: DNS resolver which will resolve the IP of application/service
+	- Cross-Component Analysis:
+		- Correlation Metrics: Metrics that indicate correlations between different components (e.g., correlation between CPU usage and response time).
+		- Dependency Metrics: Metrics that show dependencies between components (e.g. dependency between frontend error rates and database query latency).
+5. External Dependencies and Third-Party APIs:
+	- Monitoring of External Services:
+		- Availability: Percentage of time external services are available.
+		- Response Time: Average time taken for requests to external services to complete.
+	- Error Rates and Latency:
+		- Error Rates: Percentage of errors encountered when communicating with third-party	APIs.
+		- Latency Distribution: Distribution of latency values for requests to external	services.
+		- Transaction Traces: View detailed transaction traces to identify slow transactions and performance bottlenecks within the payment gateway.
+	- Miscellaneous:
+		- Database Errors: Monitor database errors related to payment transactions and identify potential issues impacting payment processing.

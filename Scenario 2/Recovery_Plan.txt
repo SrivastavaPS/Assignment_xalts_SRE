@@ -1,0 +1,17 @@
+Recovery Plan:
+--------------
+
+1. Stop All Write Access: Immediately cease all write access to the server to prevent further loss or security issues.
+  
+2. Isolate the Server: Disconnect the affected server from the network to prevent unauthorized access.
+  
+3. Assess Backup Availability: Check if there are recent backups with the deleted file. If found, restore it carefully without losing any recent changes.
+  
+4. Use File Recovery Tools: Try using special tools to recover the deleted file from the server's storage.
+  
+5. Verify Recovered File: Make sure the recovered file has all the needed credentials and isn't damaged.
+  
+6. Test Access and Functionality: Check if the restored file works well without causing any problems.
+
+7. In case of EC2, if your pem key is deleted, you can login through cloudshell and perform necessary actions.
+

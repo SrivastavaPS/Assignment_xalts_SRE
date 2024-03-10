@@ -1,0 +1,36 @@
+Proposed solutions:
+===================
+
+1. Catastrophic dashboards: Must have catastrophic dashboards to monitor the health of critical services and they must be monitored continuosly.
+
+2. Fault Tolerance and Redundancy: Implementing redundancy and failover mechanisms within the cluster and RDS will reduce the impact on service/buisness. This may include deploying multiple replicas.
+
+3. Auto-Scaling: This feature will automatically adjust resources based on demand reducing downtime due to over utilization of resources. 
+
+4. Alarms: Configuring cloudwatch alarms for almost all the necessary metrics will give us more time to proactively look into the issues.
+
+5. Enhancing Alerts and Monitoring: We can configure prometheus / pager duty for alerts for abnormal error rates, connectivity issues, and performance degradation to proactively detect any issue.
+
+6. Implement Retries: Retry mechanisms into the Payment Gateway service can handle transient errors
+
+7. Database Replication and Backups: Setting up multi-AZ deployment for Amazon RDS to ensure data redundancy and automatic failover in case of instance failures. Implementing regular backups and database replication to minimize data loss and expedite recovery in the event of a service outage or database corruption.
+
+8. Disaster Recovery Plan: Need to develop a comprehensive disaster recovery plan covering procedures for restoring service functionality in the event of a catastrophic failure. It must be tested in regular interval of times to validate its effectiveness.
+
+9. Improving the Incident Response time: Team should be very active in case of any incident occurs to define the severity and ensure timely resolution.
+
+10. Post-Analysis: Post-analysis of every incident and taking necessary actions must be done to ensure that the similar issue doesn't happen in future again.
+
+11. IAC: Implement infra as code using terraform or ansible to automate the deployment and configuration of infrastructure components.
+
+12. Certificates Renewal: Ensure timely renewal of certifications.
+
+13. Documentation: Every incident must be documented with Incident, Impact, RCA, Actions taken, and Feedback
+
+14. Smooth communication with External-Agency: We must have one point of contact at all the time with them. Any activity related to our service or which can hamper our service must be communicated beforehead.
+
+15. Deployments Strategy: Before any deployment, it must be documented with
+	- Details about changes
+	- Rollback strategy
+	- Testing Strategy
+    Once it is done, take signoff from all respective teams.
